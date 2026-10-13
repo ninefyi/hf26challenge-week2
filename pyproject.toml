@@ -1,0 +1,17 @@
+[project]
+name = "tripkit"
+version = "0.1.0"
+description = "Trip photo + short caption -> title, place, one-sentence caption, hashtags, with a local Gemma"
+requires-python = ">=3.13"
+dependencies = [
+    "gradio>=6.29.1",
+    "ollama>=0.6.3",
+    "pillow>=12.3.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
