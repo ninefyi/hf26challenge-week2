@@ -3,3 +3,4 @@ results/
 .venv/
 __pycache__/
 eval-set/
+.DS_Store
