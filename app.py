@@ -51,7 +51,7 @@ def on_save(photo, lang, verdict, title, place, caption, tags, note, generated, 
         raise gr.Error("สร้างชุดโพสต์ก่อน")
     final = {"title": title, "place": place, "caption": caption, "hashtags": tags}
     append_log(feedback_record(_bytes(photo), LANGS[lang], VERDICTS[verdict], generated, final,
-                               guess or "", note or ""), LOG)
+                               guess or "", note or "", Path(photo).name), LOG)
     return "บันทึกผลแล้ว ขอบคุณครับ"
 
 

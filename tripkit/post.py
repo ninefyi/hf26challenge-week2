@@ -37,13 +37,14 @@ def edited_fields(generated: dict, final: dict) -> list[str]:
 
 
 def feedback_record(image_bytes: bytes, lang: str, verdict: str, generated: dict, final: dict,
-                    guess_place: str, typed_note: str) -> dict:
-    """One row of the evaluation log. No photo, no GPS: only a short hash to tell photos apart."""
+                    guess_place: str, typed_note: str, photo_name: str = "") -> dict:
+    """One row of the evaluation log. No photo, no GPS: a short hash and the file name tell photos apart."""
     changed = edited_fields(generated, final)
     place = one_line(final.get("place", ""))
     return {
         "ts": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
         "photo_id": hashlib.sha1(image_bytes).hexdigest()[:10],
+        "photo_name": photo_name,
         "lang": lang,
         "verdict": verdict,  # "as-is" | "edited" | "unusable", chosen by the person
         "edited_fields": changed,

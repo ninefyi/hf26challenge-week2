@@ -40,6 +40,18 @@ uv run pytest
 
 Covers the hashtag and caption rules and the evaluation log. It does not call the model.
 
+## Evaluation
+
+The accuracy bar in [EVAL.md](EVAL.md) is checked by `eval.py`. Put the photos and a `manifest.csv` (see [manifest.example.csv](manifest.example.csv)) in `eval-set/`, which is git-ignored.
+
+```bash
+uv run python eval.py run --set eval-set/manifest.csv   # model pass: kits, automatic rules, place guesses
+# the First user opens the page, checks each photo and presses a verdict button
+uv run python eval.py report                            # scores the run against the bar
+```
+
+`run` also writes a `*-guess-review.csv`. Fill its `manual` column (`hit`, `wrong` or `unknown`) where the automatic label is off, for example when a guess is the right area under a different spelling. The report is `MET` only if every photo has a verdict, at least 70% are "post as is", and no Place was invented. Until every photo has a verdict it says `INCOMPLETE`.
+
 ## Model spike
 
 `spike.py` runs the guess and the kit over six public photos from Wikimedia Commons, which are not included in this repository (add your own to `spike-photos/` and edit `CASES`). On those six photos the place guess was clearly right once, was wrong with a "high" confidence label three times, near the right place once, and declined once. The confidence label is not usable, which is why the page never shows it. Six photos is a spike, not an evaluation.
