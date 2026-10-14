@@ -21,3 +21,6 @@ Fixed on 2026-10-13. Amended the same day after the model spike (6 public photos
 
 ## Reporting
 Report the real numbers even if they miss the bar. Raw outputs are saved next to the results.
+
+## Deviation (2026-10-14)
+The plan was 20 photos judged by the First user. The author decided to evaluate on **one photo**, judged by the author, who is also the First user and the Traveller. With n = 1 the post-as-is rate can only be 0% or 100%, so the accuracy bar above (at least 14 of 20, 0 invented places) **is not tested** and no accuracy rate may be claimed. The one-photo run is reported as a single worked example. The earlier six-photo spike on public photos (Place guess clearly right once, wrong with a "high" label three times) is a separate, unscored spike. The numeric thresholds above are unchanged.

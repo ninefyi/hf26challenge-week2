@@ -79,9 +79,15 @@ def test_accuracy_bar_fails_on_one_invented_place_even_at_100_percent():
 
 
 def test_accuracy_bar_incomplete_lists_photos_without_a_verdict():
-    rows = [row("a.jpg", "1"), row("b.jpg", "2")]
+    rows = [row(f"{i}.jpg", str(i)) for i in range(20)]
+    result = accuracy_bar(rows, [fb(str(i), "as-is") for i in range(19)])
+    assert result["status"] == "INCOMPLETE" and result["missing_verdict"] == ["19.jpg"]
+
+
+def test_accuracy_bar_is_not_tested_below_20_photos_even_at_100_percent():
+    rows = [row("a.jpg", "1")]
     result = accuracy_bar(rows, [fb("1", "as-is")])
-    assert result["status"] == "INCOMPLETE" and result["missing_verdict"] == ["b.jpg"]
+    assert result["status"].startswith("NOT TESTED") and result["as_is_rate"] == 1.0
 
 
 def test_accuracy_bar_falls_back_to_file_name_when_hash_differs():

@@ -7,6 +7,7 @@ from .validate import MAX_CAPTION_CHARS, MIN_HASHTAGS, clean_hashtags, one_line
 # Fixed in EVAL.md before any evaluation run. Do not change after seeing results.
 MIN_AS_IS_RATE = 0.70
 MAX_INVENTED_PLACES = 0
+MIN_PHOTOS = 20  # a rate from fewer photos cannot show the bar was met
 
 
 def auto_checks(kit: dict, typed_place: str) -> dict[str, bool]:
@@ -92,7 +93,10 @@ def accuracy_bar(rows: list[dict], feedback: list[dict]) -> dict:
     rate = counts["as-is"] / n if n else 0.0
     invented = sum(not r["checks"]["place_not_invented"] for r in rows)
     meets = rate >= MIN_AS_IS_RATE and invented <= MAX_INVENTED_PLACES
-    status = ("INCOMPLETE" if missing else ("MET" if meets else "NOT MET"))
+    if n < MIN_PHOTOS:
+        status = f"NOT TESTED (only {n} photos; the bar needs {MIN_PHOTOS})"
+    else:
+        status = "INCOMPLETE" if missing else ("MET" if meets else "NOT MET")
     return {
         "photos": n,
         "verdicts": counts,
