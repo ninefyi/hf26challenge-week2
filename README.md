@@ -15,7 +15,7 @@ Built for the [Hacktoberfest Open-Source AI Challenge: Week 2, "Side Hustle"](ht
 3. **Make the post kit.** Gemma looks at the photo and writes the title, caption and hashtags. The Place on the kit is your own text, passed through unchanged. If you gave none, the kit says so instead of inventing one.
 4. **Edit and copy.** Every field is editable, and a combined text box updates as you type.
 
-Rules the kit must meet (checked in code, with a retry): at least 3 hashtags, each starting with `#` and without spaces; a single-line caption of at most 120 characters. Photos are rotated, shrunk to 1024 px and re-encoded without EXIF before the model sees them, so GPS data is never read or kept.
+Rules the kit must meet (checked in code, with a retry): at least 3 hashtags, each starting with `#` and without spaces; a single-line caption of at most 120 characters. Photos are rotated, shrunk to 1024 px and re-encoded without EXIF before the model sees them, so GPS data never reaches the model or the evaluation log. (Gradio keeps its own temporary copy of the uploaded original, so the file itself is not guaranteed to be gone from the machine.)
 
 The page also has a small "help me check" form for testing. It appends one line per photo to `results/feedback.jsonl` (a short hash of the photo, your Note, the generated and the final text, which fields you edited, and your verdict). It does not store photos or coordinates, but it does store the text you typed, so treat the file as private. The `results/` folder is git-ignored.
 
